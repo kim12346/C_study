@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<windows.h>
+#include<conio.h>
+
+int main()
+{
+    int i, a;
+    char ch;
+
+    do{
+    ST:
+        system("title 초가 원하는 숫자까지 증가하는 프로그램");
+        printf("몇초까지?");
+        scanf("%d", &i);
+
+
+        for(a=1; a<=i; a++){
+            printf("%d초\r", a);
+            Sleep(1000);
+            system("cls");
+        }
+        printf("다시?(y/n)");
+        ch = _getche();
+        printf("\n");
+        if(ch == 'y' || ch == 'Y')
+            goto ST;
+
+        else //if(ch == 'n'  ch == 'N')
+            break;
+
+        }while(ch == 'y' || ch == 'Y');
+}
