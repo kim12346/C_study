@@ -1,38 +1,58 @@
-#include<stdio.h>
-#include<conio.h>
-#include<windows.h>
+#include <stdio.h>
+#include <conio.h>
+#include <windows.h>
+
+#define BOARD_SIZE 10
 
 int main()
 {
-	char board[10][10];
-	int xpos = 1, ypos = 1;
-	int k, i;
-	
-	for(int y = 0;y<10;y++)
-		for(int x=0;x<10;x++) board[y][x] = '.';
-		
-		board[ypos][xpos] = '#';
-		board[9][9] = 'G';
-		board[5][5] = 'M';
-		board[6][7] = 'M';
-		
-		printf("왼쪽이동:a 오른쪽 이동:d 위쪽 이동:w 아래쪽이동:s\n");
-		
-		while(1){
-			for(int y=0;y<10;y++){
-				for(int x=0;x<10;x++)
-					printf("%c", board[x][y]);
-					printf("\n");
-				}
-				board[ypos][xpos] = '.';
-				int ch = _getch();
-				if(ch=='w') xpos--;
-				else if(ch == 'd') ypos++;
-				else if(ch == 'a') ypos--;
-				else if(ch == 's') xpos++;
-				board[ypos][xpos] = '#';
-				
-				printf("------------------------------------------------------------");
-				system("cls");
-			}
-		}
+    char board[BOARD_SIZE][BOARD_SIZE];
+    int xpos = 1, ypos = 1;
+	int x, y;
+
+    for(y = 0; y < BOARD_SIZE; y++){
+        for(x = 0; x < BOARD_SIZE; x++){
+            board[y][x] = '.';
+        }
+    }
+    
+    board[ypos][xpos] = '#';
+    board[9][9] = 'O';  // 목표 지점
+    board[5][5] = 'X';  // 장애물
+    board[6][7] = 'X';  // 장애물
+    
+    while(1){
+        system("cls");
+        printf("왼쪽이동: a, 오른쪽 이동: d, 위쪽 이동: w, 아래쪽이동: s\n");
+        
+        
+        for(y = 0; y < BOARD_SIZE; y++){
+            for(x = 0; x < BOARD_SIZE; x++){
+                printf("%c ", board[y][x]);
+            }
+            printf("\n");
+        }
+        
+
+        board[ypos][xpos] = '.';
+        
+        
+        int ch = _getch();
+        
+        if(ch == 'w' && xpos > 0) ypos--;
+        else if(ch == 's' && xpos < BOARD_SIZE - 1) ypos++;
+        else if(ch == 'a' && ypos > 0) xpos--;
+        else if(ch == 'd' && ypos < BOARD_SIZE - 1) xpos++;
+        
+        
+        board[ypos][xpos] = '#';
+        
+        
+        if (xpos == 9 && ypos == 9) {
+            system("cls");
+            printf("축하합니다! 목표 지점에 도착했습니다.\n");
+            break;
+        }
+    }
+
+}
